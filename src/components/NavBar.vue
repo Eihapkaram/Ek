@@ -1,10 +1,10 @@
 <template>
-  <v-app-bar v-if="show">
+  <v-app-bar style="" v-if="show">
     <template v-slot:prepend>
       <v-app-bar-nav-icon @click="open = !open"></v-app-bar-nav-icon>
     </template>
 
-    <v-app-bar-title>proto</v-app-bar-title>
+    <v-app-bar-title>Ek</v-app-bar-title>
 
     <template v-slot:append>
       <!-- مفتاح التبديل المنزلق الاحترافي (Toggle Switch) -->
@@ -69,7 +69,7 @@
     </v-list>
   </v-navigation-drawer>
   <v-app-bar v-if="!show" class="nav">
-    <span class="logo"> proto </span>
+    <span class="logo">Ek</span>
 
     <v-list class="linkslist">
       <router-link style="margin-bottom: 5px" to="/">home</router-link>
@@ -358,7 +358,7 @@ watch(
 
 /* تنسيق النيف بار المتوافق مع الـ Themes */
 .nav {
-  background-color: rgb(var(--v-theme-surface)) !important;
+  background-color: transparent !important;
   border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity)) !important;
   transition:
     background-color 0.3s ease,

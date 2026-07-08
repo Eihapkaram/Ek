@@ -114,13 +114,13 @@ const experiences = reactive([
 ])
 onMounted(() => {
   if (theme.value == 'dark') {
-    document.querySelector('.experience-clean-section').style.backgroundColor = 'transparent'
+    document.querySelector('.experience-clean-section').style.backgroundColor = ''
     document.querySelector('.experience-card').style.backgroundColor = ''
     document.querySelector('#roletitle').style.color = ''
   } else {
-    document.querySelector('.experience-clean-section').style.backgroundColor = '#ffffff'
+    document.querySelector('.experience-clean-section').style.backgroundColor = ''
 
-    document.querySelector('.experience-card').style.backgroundColor = '#ffffff'
+    document.querySelector('.experience-card').style.backgroundColor = ''
     document.querySelector('#roletitle').style.color = ''
   }
 })
@@ -129,13 +129,13 @@ watch(
   (newVal, oldVal) => {
     theme.value = newVal
     if (theme.value == 'dark') {
-      document.querySelector('.experience-clean-section').style.backgroundColor = 'transparent'
+      document.querySelector('.experience-clean-section').style.backgroundColor = ''
       document.querySelector('.experience-card').style.backgroundColor = ''
       document.querySelector('#roletitle').style.color = ''
     } else {
-      document.querySelector('.experience-clean-section').style.backgroundColor = '#ffffff'
+      document.querySelector('.experience-clean-section').style.backgroundColor = ''
 
-      document.querySelector('.experience-card').style.backgroundColor = '#ffffff'
+      document.querySelector('.experience-card').style.backgroundColor = ''
       document.querySelector('#roletitle').style.color = ''
     }
   },
@@ -174,6 +174,7 @@ watch(
 }
 
 /* كرت الخبرة الاحترافي (White Minimal Card) */
+
 .experience-card {
   border-radius: 12px !important;
   box-shadow:
@@ -261,7 +262,9 @@ watch(
   .v-timeline--vertical.v-timeline--justify-center[data-v-9f0b4001] {
     grid-template-columns: minmax(0px, 0%) min-content minmax(0px, 0%);
   }
-
+  #experience {
+    padding: 0px;
+  }
   .past-dot {
     width: 10px;
     height: 10px;
@@ -274,7 +277,7 @@ watch(
     position: relative;
   }
   .experience-card {
-    max-width: 18rem;
+    max-width: 17rem;
   }
   /* كبسولات التقنيات المستخدمة في الوظائف */
   .gap-2 {

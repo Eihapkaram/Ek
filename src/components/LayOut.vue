@@ -21,7 +21,7 @@ import Footer from './Footer.vue'
   flex-flow: column;
 }
 .lay .v-main {
-  margin-bottom: 200px;
+  margin-bottom: 20px;
 }
 body {
   display: block;

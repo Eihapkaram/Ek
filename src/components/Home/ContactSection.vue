@@ -141,11 +141,11 @@ const store = useCounterStore()
 const { theme } = storeToRefs(store)
 onMounted(() => {
   if (theme.value == 'dark') {
-    document.querySelector('#contact').style.backgroundColor = 'black'
+    document.querySelector('#contact').style.backgroundColor = 'transparent'
     document.querySelector('#tiTelCol').style.color = ''
     document.querySelector('#rowT').style.color = ''
   } else {
-    document.querySelector('#contact').style.backgroundColor = '#fff'
+    document.querySelector('#contact').style.backgroundColor = 'transparent'
     document.querySelector('#tiTelCol').style.color = 'black'
     document.querySelector('#rowT').style.color = 'black'
   }
@@ -155,11 +155,11 @@ watch(
   (newVal, oldVal) => {
     theme.value = newVal
     if (theme.value == 'dark') {
-      document.querySelector('#contact').style.backgroundColor = 'black'
+      document.querySelector('#contact').style.backgroundColor = 'transparent'
       document.querySelector('#tiTelCol').style.color = ''
       document.querySelector('#rowT').style.color = ''
     } else {
-      document.querySelector('#contact').style.backgroundColor = '#fff'
+      document.querySelector('#contact').style.backgroundColor = '#transparent'
       document.querySelector('#tiTelCol').style.color = 'black'
       document.querySelector('#rowT').style.color = 'black'
     }

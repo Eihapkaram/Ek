@@ -42,9 +42,9 @@ const store = useCounterStore()
 const { theme } = storeToRefs(store)
 onMounted(() => {
   if (theme.value == 'dark') {
-    document.querySelector('.clean-footer').style.backgroundColor = 'black'
+    document.querySelector('.clean-footer').style.backgroundColor = 'transparent'
   } else {
-    document.querySelector('.clean-footer').style.backgroundColor = '#ffffff'
+    document.querySelector('.clean-footer').style.backgroundColor = 'transparent'
   }
 })
 watch(
@@ -52,9 +52,9 @@ watch(
   (newVal, oldVal) => {
     theme.value = newVal
     if (theme.value == 'dark') {
-      document.querySelector('.clean-footer').style.backgroundColor = 'black'
+      document.querySelector('.clean-footer').style.backgroundColor = 'transparent'
     } else {
-      document.querySelector('.clean-footer').style.backgroundColor = '#ffffff'
+      document.querySelector('.clean-footer').style.backgroundColor = 'transparent'
     }
   },
 )

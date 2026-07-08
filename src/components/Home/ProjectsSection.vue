@@ -96,16 +96,16 @@ const store = useCounterStore()
 const { theme } = storeToRefs(store)
 onMounted(() => {
   if (theme.value == 'dark') {
-    document.querySelector('.projects-clean-section').style.backgroundColor = 'black'
-    document.querySelector('.project-minimal-card').style.backgroundColor = '#62606071'
-    document.querySelector('#cardtitle').style.color = '#6c82a5'
-    document.querySelector('.action-btn').style.color = 'black'
+    document.querySelector('.projects-clean-section').style.backgroundColor = 'transparent'
+    document.querySelector('.project-minimal-card').style.backgroundColor = ''
+    document.querySelector('#cardtitle').style.color = ''
+    document.querySelector('.action-btn').style.color = ''
     document.querySelector('#title2').style.color = ''
   } else {
-    document.querySelector('.projects-clean-section').style.backgroundColor = '#fff'
-    document.querySelector('.project-minimal-card').style.backgroundColor = '#eff0f39d'
+    document.querySelector('.projects-clean-section').style.backgroundColor = 'transparent'
+    document.querySelector('.project-minimal-card').style.backgroundColor = ''
     document.querySelector('#cardtitle').style.color = ''
-    document.querySelector('.action-btn').style.color = 'black'
+    document.querySelector('.action-btn').style.color = ''
     document.querySelector('#title2').style.color = 'black'
   }
 })
@@ -117,16 +117,16 @@ watch(
   (newVal, oldVal) => {
     theme.value = newVal
     if (theme.value == 'dark') {
-      document.querySelector('.projects-clean-section').style.backgroundColor = 'black'
-      document.querySelector('.project-minimal-card').style.backgroundColor = '#62606071'
+      document.querySelector('.projects-clean-section').style.backgroundColor = 'transparent'
+      document.querySelector('.project-minimal-card').style.backgroundColor = ''
 
-      document.querySelector('.action-btn').style.color = 'black'
+      document.querySelector('.action-btn').style.color = ''
       document.querySelector('#title2').style.color = ''
     } else {
-      document.querySelector('.projects-clean-section').style.backgroundColor = '#fff'
-      document.querySelector('.project-minimal-card').style.backgroundColor = '#eff0f39d'
+      document.querySelector('.projects-clean-section').style.backgroundColor = 'transparent'
+      document.querySelector('.project-minimal-card').style.backgroundColor = ''
 
-      document.querySelector('.action-btn').style.color = 'black'
+      document.querySelector('.action-btn').style.color = ''
       document.querySelector('#title2').style.color = 'black'
     }
   },
@@ -138,7 +138,7 @@ watch(
 .projects-clean-section {
   background-color: #f8fafc; /* لون أبيض ناصع ناعم جداً مائل للأزرق الخفيف جداً (Slate 50) */
   font-family: 'Inter', sans-serif;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 }
 
 /* خط تزييني أسفل العنوان الرئيسي */
@@ -220,7 +220,7 @@ watch(
 .action-btn {
   letter-spacing: 0.5px;
   transition: transform 0.2s ease;
-  color: rgba(55, 54, 54, 0.468);
+  color: black;
   background-color: rgb(255, 117, 117);
 }
 

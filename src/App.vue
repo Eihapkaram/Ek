@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import LayOut from '@/components/LayOut.vue'
 import LoadingScreen from './components/LoadingScreen.vue'
+import NarutoWindBackdrop from './components/NarutoWindBackdrop.vue'
 const route = useRoute()
 const isLoading = ref(true)
 onMounted(() => {
@@ -15,6 +16,7 @@ onMounted(() => {
 
 <template>
   <LoadingScreen v-if="isLoading" />
+  <NarutoWindBackdrop />
   <lay-out class="lay" style="position: relative">
     <RouterView :key="route.fullPath" />
   </lay-out>

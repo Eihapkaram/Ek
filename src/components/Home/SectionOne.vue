@@ -221,7 +221,7 @@ watch(
 .con {
   position: relative;
   min-height: 550px;
-  margin-block: 40px;
+  margin-block: 20px;
   font-family: 'Inter', sans-serif;
 }
 
@@ -624,7 +624,7 @@ watch(
     transform: rotate(0deg) scale(0.9);
   }
   25% {
-    transform: rotate(360deg) scale(1.5);
+    transform: rotate(360deg) scale(1.05);
   }
   85% {
     transform: rotate(-360deg) scale(1.02);

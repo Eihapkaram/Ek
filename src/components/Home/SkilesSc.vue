@@ -94,7 +94,7 @@ onMounted(() => {
     document.querySelector('.skill-group-card').style.backgroundColor = ''
     document.querySelector('#contitle').style.color = ''
   } else {
-    document.querySelector('.skill-group-card').style.backgroundColor = '#f8fafc'
+    document.querySelector('.skill-group-card').style.backgroundColor = 'transparent'
     document.querySelector('#contitle').style.color = 'black'
   }
 })
@@ -105,75 +105,51 @@ const frontendCategories = reactive([
     skills: [
       { name: 'React', icon: 'react.png' },
       { name: 'Vue.js', icon: 'vuejs.png' },
+      { name: 'Nuxt.js', icon: 'nuxt.png' },
     ],
   },
   {
     title: 'Styling & Ecosystem',
     skills: [
       { name: 'Tailwind', icon: 'tailwind.png' },
-      { name: 'Nuxt.js', icon: 'vuejs.png' },
-      { name: 'SASS', icon: 'react.png' },
-      { name: 'Vuetify', icon: 'vuejs.png' },
+      { name: 'BootStrap', icon: 'bootstrap.png' },
+      { name: 'SASS', icon: 'sass.png' },
+      { name: 'Vuetify', icon: 'vuetify.png' },
     ],
   },
   {
     title: 'Languages',
-    skills: [
-      { name: 'TypeScript', icon: 'react.png' },
-      { name: 'JavaScript', icon: 'vuejs.png' },
-    ],
+    skills: [{ name: 'JavaScript', icon: 'js.png' }],
   },
 ])
 
 const backendCategories = reactive([
   {
     title: 'Languages',
-    skills: [
-      { name: 'Python', icon: 'laravel.png' },
-      { name: 'PHP', icon: 'laravel.png' },
-    ],
+    skills: [{ name: 'PHP', icon: 'php.png' }],
   },
   {
     title: 'Frameworks',
-    skills: [
-      { name: 'Django', icon: 'laravel.png' },
-      { name: 'Laravel', icon: 'laravel.png' },
-      { name: 'Express', icon: 'mysql.png' },
-    ],
+    skills: [{ name: 'Laravel', icon: 'laravel.png' }],
   },
   {
     title: 'Architecture & APIs',
-    skills: [
-      { name: 'GraphQL', icon: 'mysql.png' },
-      { name: 'REST APIs', icon: 'mysql.png' },
-    ],
+    skills: [{ name: 'REST APIs', icon: 'mysql.png' }],
   },
 ])
 
 const toolsCategories = reactive([
   {
     title: 'DevOps & Cloud',
-    skills: [
-      { name: 'Docker', icon: 'react.png' },
-      { name: 'Kubernetes', icon: 'vuejs.png' },
-      { name: 'AWS', icon: 'laravel.png' },
-      { name: 'Google Cloud', icon: 'mysql.png' },
-    ],
+    skills: [{ name: 'Docker', icon: 'docker.png' }],
   },
   {
     title: 'Databases',
-    skills: [
-      { name: 'MySQL', icon: 'mysql.png' },
-      { name: 'PostgreSQL', icon: 'mysql.png' },
-      { name: 'MongoDB', icon: 'mysql.png' },
-    ],
+    skills: [{ name: 'MySQL', icon: 'mysql.png' }],
   },
   {
     title: 'Version Control',
-    skills: [
-      { name: 'Git', icon: 'react.png' },
-      { name: 'GitHub', icon: 'vuejs.png' },
-    ],
+    skills: [{ name: 'GitHub', icon: 'github.webp' }],
   },
 ])
 watch(
@@ -185,7 +161,7 @@ watch(
       document.querySelector('.skill-group-card').style.backgroundColor = ''
       document.querySelector('#contitle').style.color = ''
     } else {
-      document.querySelector('.skill-group-card').style.backgroundColor = '#f8fafc'
+      document.querySelector('.skill-group-card').style.backgroundColor = 'transparent'
       document.querySelector('#contitle').style.color = 'black'
     }
   },
@@ -204,7 +180,7 @@ watch(
   /* أسود مطفي ناعم جداً مريح للعين مائل للرمادي */
   font-family: 'Inter', sans-serif;
   border-radius: 16px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 }
 
 /* خط فاصل أنيق للهيدر */
