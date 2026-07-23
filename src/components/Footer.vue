@@ -5,10 +5,12 @@
         <!-- الجانب الأيسر: اسم المطور والحقوق -->
         <v-col cols="12" sm="6" class="text-center text-sm-left py-1">
           <div class="d-inline-flex align-center flex-wrap justify-center justify-sm-start">
-            <span class="footer-logo font-weight-bold tracking-wider mr-2">IHAP KARAM</span>
+            <span class="footer-logo font-weight-bold tracking-wider mr-2">
+              {{ langStore.langfun().name }}</span
+            >
             <span class="footer-separator d-none d-sm-inline">|</span>
             <span class="footer-copyright ml-sm-2">
-              &copy; {{ currentYear }} All Rights Reserved.
+              &copy; {{ currentYear }} {{ langStore.langfun().HomeLink.right }}
             </span>
           </div>
         </v-col>
@@ -16,8 +18,16 @@
         <!-- الجانب الأيمن: روابط التنقل السريعة والآمنة -->
         <v-col id="rightcon" cols="12" sm="6" class="text-center text-sm-right py-1">
           <div class="footer-links d-flex justify-center justify-sm-end flex-wrap gap-4">
-            <v-list-item v-for="(link, i) in links" :key="i">
-              <a :href="link.url" class="footer-link-item">{{ link.title }}</a>
+            <v-list-item>
+              <router-link class="footer-link-item" style="margin: 0px; padding: 0px" to="/">{{
+                langStore.langfun().HomeLink.title
+              }}</router-link>
+            </v-list-item>
+
+            <v-list-item v-for="(link, i) in langStore.langfun().HomeLink.links" :key="i">
+              <router-link class="footer-link-item" :to="link.url">
+                {{ link.title }}
+              </router-link>
             </v-list-item>
           </div>
         </v-col>
@@ -37,7 +47,8 @@
 import { computed, reactive, onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useCounterStore } from '/src/stores/counter'
-
+import { lang } from '/src/stores/lang'
+const langStore = lang()
 const store = useCounterStore()
 const { theme } = storeToRefs(store)
 onMounted(() => {
@@ -59,7 +70,6 @@ watch(
   },
 )
 const links = reactive([
-  { title: 'Home', url: '#' },
   { title: 'Experience', url: '#experience' },
   { title: 'Skills', url: '#skills' },
   { title: 'Projects', url: '#projects' },

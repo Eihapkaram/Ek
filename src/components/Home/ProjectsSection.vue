@@ -4,16 +4,18 @@
       <v-col id="colTitle" cols="12" class="text-center">
         <div class="d-inline-flex align-center justify-center mb-2">
           <v-icon icon="mdi-cloud" color="red-darken-2" class="mr-2" size="small"></v-icon>
-          <span class="section-subtitle">MY WORK</span>
+          <span class="section-subtitle">{{ ProStore.proh().header.subtitle }}</span>
         </div>
-        <h2 id="title2" class="text-h3 font-weight-bold tracking-wide">Featured Projects</h2>
+        <h2 id="title2" class="text-h3 font-weight-bold tracking-wide">
+          {{ ProStore.proh().header.title }}
+        </h2>
         <div class="title-line mx-auto mt-3"></div>
       </v-col>
     </v-row>
 
     <v-row id="CardsRow" class="px-md-6">
       <v-col
-        v-for="(project, index) in projects"
+        v-for="(project, index) in ProStore.proh().all"
         :key="index"
         id="procol"
         cols="12"
@@ -31,7 +33,7 @@
               class="rounded-lg bg-grey-lighten-4"
             >
               <div class="tags-overlay pa-3 d-flex flex-wrap gap-2">
-                <span v-for="tech in project.skills.slice(0, 4)" :key="tech" class="tech-tag">
+                <span v-for="tech in project.skills.slice(0, 3)" :key="tech" class="tech-tag">
                   {{ tech }}
                 </span>
               </div>
@@ -72,7 +74,9 @@ const router = useRouter()
 import { storeToRefs } from 'pinia'
 import { useCounterStore } from '/src/stores/counter'
 import { Projects } from '/src/stores/Projects'
+import { lang } from '/src/stores/lang'
 const ProStore = Projects()
+
 function Go(pro) {
   router.push({
     name: 'ProjectDetails',
@@ -92,6 +96,7 @@ function Go(pro) {
     },
   })
 }
+
 const store = useCounterStore()
 const { theme } = storeToRefs(store)
 onMounted(() => {
@@ -100,7 +105,7 @@ onMounted(() => {
     document.querySelector('.project-minimal-card').style.backgroundColor = ''
     document.querySelector('#cardtitle').style.color = ''
     document.querySelector('.action-btn').style.color = ''
-    document.querySelector('#title2').style.color = ''
+    document.querySelector('#title2').style.color = 'black'
   } else {
     document.querySelector('.projects-clean-section').style.backgroundColor = 'transparent'
     document.querySelector('.project-minimal-card').style.backgroundColor = ''
@@ -109,8 +114,6 @@ onMounted(() => {
     document.querySelector('#title2').style.color = 'black'
   }
 })
-// تم تحديث المصفوفة بروابط صفحة الـ Behance الخاصة بك بشكل مباشر ومنظم
-const projects = ProStore.all
 
 watch(
   () => theme.value,

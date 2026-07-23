@@ -4,9 +4,11 @@
       <v-col id="titelcon">
         <v-row>
           <div class="d-flex align-center flex-wrap">
-            <h4 style="color: rgb(244, 36, 36); font-weight: bold">/ SKILLS</h4>
+            <h4 style="color: rgb(244, 36, 36); font-weight: bold">
+              / {{ langStore.langfun().SkillHead.subtitle }}
+            </h4>
             <h3 id="contitle" class="text-h1 text-grey-darken-1 font-weight-light">
-              & TECHNOLOGIES
+              {{ langStore.langfun().SkillHead.title }}
             </h3>
           </div>
         </v-row>
@@ -21,12 +23,17 @@
         <v-card flat class="skill-group-card pa-6">
           <div class="group-header mb-6">
             <v-icon icon="mdi-xml" color="blue-lighten-2" class="mr-2" size="small"></v-icon>
-            <span id="frontdev" class="text-h6 font-weight-medium text-white"
-              >Frontend Development</span
-            >
+            <span id="frontdev" class="text-h6 font-weight-medium text-white">{{
+              langStore.langfun().SkillHead.bigtitle
+            }}</span>
           </div>
 
-          <div id="sction" v-for="cat in frontendCategories" :key="cat.title" class="mb-6">
+          <div
+            id="sction"
+            v-for="cat in langStore.langfun().frontendCategories"
+            :key="cat.title"
+            class="mb-6"
+          >
             <div id="sctiontitle" class="category-label mb-3">{{ cat.title }}</div>
             <div class="d-flex flex-wrap gap-3">
               <div v-for="skill in cat.skills" :key="skill.name" class="skill-badge">
@@ -42,12 +49,12 @@
         <v-card flat class="skill-group-card pa-6">
           <div class="group-header mb-6">
             <v-icon icon="mdi-server" color="blue-lighten-2" class="mr-2" size="small"></v-icon>
-            <span id="backdev" class="text-h6 font-weight-medium text-white"
-              >Backend Development</span
-            >
+            <span id="backdev" class="text-h6 font-weight-medium text-white">{{
+              langStore.langfun().SkillHead.bigtitle1
+            }}</span>
           </div>
 
-          <div v-for="cat in backendCategories" :key="cat.title" class="mb-6">
+          <div v-for="cat in langStore.langfun().backendCategories" :key="cat.title" class="mb-6">
             <div class="category-label mb-3">{{ cat.title }}</div>
             <div class="d-flex flex-wrap gap-3">
               <div v-for="skill in cat.skills" :key="skill.name" class="skill-badge">
@@ -63,10 +70,12 @@
         <v-card flat class="skill-group-card pa-6">
           <div class="group-header mb-6">
             <v-icon icon="mdi-wrench" color="blue-lighten-2" class="mr-2" size="small"></v-icon>
-            <span class="text-h6 font-weight-medium text-white">Tools & Infrastructure</span>
+            <span class="text-h6 font-weight-medium text-white">{{
+              langStore.langfun().SkillHead.bigtitle2
+            }}</span>
           </div>
 
-          <div v-for="cat in toolsCategories" :key="cat.title" class="mb-4">
+          <div v-for="cat in langStore.langfun().toolsCategories" :key="cat.title" class="mb-4">
             <div class="category-label mb-3">{{ cat.title }}</div>
             <div class="d-flex flex-wrap gap-3">
               <div v-for="skill in cat.skills" :key="skill.name" class="skill-badge">
@@ -85,6 +94,8 @@
 import { ref, reactive, onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useCounterStore } from '/src/stores/counter'
+import { lang } from '/src/stores/lang'
+const langStore = lang()
 const path = ref(`/`)
 const store = useCounterStore()
 const { theme } = storeToRefs(store)
@@ -98,60 +109,7 @@ onMounted(() => {
     document.querySelector('#contitle').style.color = 'black'
   }
 })
-// مصفوفات البيانات المنظمة والمريحة للعين
-const frontendCategories = reactive([
-  {
-    title: 'Frameworks',
-    skills: [
-      { name: 'React', icon: 'react.png' },
-      { name: 'Vue.js', icon: 'vuejs.png' },
-      { name: 'Nuxt.js', icon: 'nuxt.png' },
-    ],
-  },
-  {
-    title: 'Styling & Ecosystem',
-    skills: [
-      { name: 'Tailwind', icon: 'tailwind.png' },
-      { name: 'BootStrap', icon: 'bootstrap.png' },
-      { name: 'SASS', icon: 'sass.png' },
-      { name: 'Vuetify', icon: 'vuetify.png' },
-    ],
-  },
-  {
-    title: 'Languages',
-    skills: [{ name: 'JavaScript', icon: 'js.png' }],
-  },
-])
 
-const backendCategories = reactive([
-  {
-    title: 'Languages',
-    skills: [{ name: 'PHP', icon: 'php.png' }],
-  },
-  {
-    title: 'Frameworks',
-    skills: [{ name: 'Laravel', icon: 'laravel.png' }],
-  },
-  {
-    title: 'Architecture & APIs',
-    skills: [{ name: 'REST APIs', icon: 'mysql.png' }],
-  },
-])
-
-const toolsCategories = reactive([
-  {
-    title: 'DevOps & Cloud',
-    skills: [{ name: 'Docker', icon: 'docker.png' }],
-  },
-  {
-    title: 'Databases',
-    skills: [{ name: 'MySQL', icon: 'mysql.png' }],
-  },
-  {
-    title: 'Version Control',
-    skills: [{ name: 'GitHub', icon: 'github.webp' }],
-  },
-])
 watch(
   () => theme.value,
   (newVal, oldVal) => {
@@ -257,7 +215,7 @@ watch(
   width: 20px;
   height: 20px;
   object-fit: contain;
-  margin-right: 10px;
+  margin-inline: 5px;
   filter: grayscale(20%); /* تقليل حدة ألوان الأيقونات لجعلها مريحة */
   transition: filter 0.2s ease;
 }

@@ -10,9 +10,11 @@
             class="mr-2"
             size="small"
           ></v-icon>
-          <span class="section-subtitle">MY JOURNEY</span>
+          <span class="section-subtitle">{{ langStore2.langfun().experiencesHead.title }}</span>
         </div>
-        <h2 class="text-h3 font-weight-bold text-slate-800 tracking-wide">Work Experience</h2>
+        <h2 class="text-h3 font-weight-bold text-slate-800 tracking-wide">
+          {{ langStore2.langfun().experiencesHead.subtitle }}
+        </h2>
         <div class="title-line mx-auto mt-3"></div>
       </v-col>
     </v-row>
@@ -29,7 +31,7 @@
           :side="$vuetify.display.smAndDown ? 'end' : undefined"
         >
           <v-timeline-item
-            v-for="(exp, index) in experiences"
+            v-for="(exp, index) in langStore2.langfun().experiences"
             :key="index"
             :dot-color="index === 0 ? 'red-darken-2' : 'white'"
             :fill-dot="index === 0"
@@ -83,35 +85,16 @@
 </template>
 
 <script setup>
-import { reactive, onMounted, watch } from 'vue'
+import { reactive, onMounted, watch, computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useCounterStore } from '/src/stores/counter'
+import { lang } from '/src/stores/lang'
 
+const langStore2 = lang()
 const store = useCounterStore()
 const { theme } = storeToRefs(store)
 // مصفوفة بيانات الخبرات المهنية
-const experiences = reactive([
-  {
-    role: 'Full-Stack Developer',
-    company: 'Company Name', // يمكنك استبدالها بأسماء شركاتك الحقيقية لاحقاً
-    location: 'Remote / Egypt',
-    period: '202X - Present',
-    current: true,
-    description:
-      'Leading the development of modern, responsive, and SEO-optimized web applications. Specialized in building seamless full-stack products, optimizing client-side performance, state management workflows, and engineering robust, secure RESTful APIs to connect intuitive interfaces with relational database architectures.',
-    stack: ['Vue 3', 'Laravel', 'Pinia', 'Nuxt.js', 'REST API', 'MySQL'],
-  },
-  {
-    role: 'Full-Stack Developer',
-    company: 'Company Name',
-    location: 'Cairo, Egypt',
-    period: '202X - 202X',
-    current: false,
-    description:
-      'Contributed heavily to building custom interactive front-end designs alongside robust back-end applications. Built state containers, and developed clean code for client management dashboards, improving code reusability, modular layouts, and database query executions across various projects.',
-    stack: ['React.js', 'PHP', 'Laravel', 'Bootstrap', 'Vite', 'Git'],
-  },
-])
+
 onMounted(() => {
   if (theme.value == 'dark') {
     document.querySelector('.experience-clean-section').style.backgroundColor = ''

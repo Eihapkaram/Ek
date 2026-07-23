@@ -30,10 +30,10 @@
         <v-row>
           <v-col cols="12">
             <div class="d-inline-flex align-center mb-2">
-              <span class="section-subtitle">ABOUT ME</span>
+              <span class="section-subtitle">{{ langStore.langfun().headerSOne.titleSOne }}</span>
             </div>
             <h1 class="text-h3 font-weight-bold text-slate-800 tracking-wide mb-1">
-              Discover My Journey
+              {{ langStore.langfun().headerSOne.subtitleSOne }}
             </h1>
             <div class="title-line mt-2 mb-6"></div>
           </v-col>
@@ -66,7 +66,7 @@
               :href="`${path}FullStackCv.pdf`"
               download="IhapKaramCv"
             >
-              Download Resume
+              {{ langStore.langfun().btndown }}
               <v-icon icon="mdi-download" class="ml-2" size="small"></v-icon>
             </v-btn>
           </v-col>
@@ -130,88 +130,119 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, computed, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useCounterStore } from '/src/stores/counter'
+import { lang } from '/src/stores/lang'
 
+const langStore = lang()
 const store = useCounterStore()
-const { theme } = storeToRefs(store)
+const { theme, hasSeenAnimation } = storeToRefs(store)
+
 const name = ref('')
 const sub = ref('')
-const disc = ref(``)
-const path = ref(`/`)
-// متغير للتحكم في ظهور واختفاء تأثير العين والدم والغربان للتحول إلى الصورة الشخصية
-const isEyeActive = ref(true)
+const disc = ref('')
+const path = ref('/')
+const isEyeActive = ref(!hasSeenAnimation.value)
 
-onMounted(() => {
-  // مدة التأثير السينمائي للتحول (4 ثوانٍ) لمنح الغربان فرصة كاملة لقطع الشاشة وفوق النصوص
-  setTimeout(() => {
-    isEyeActive.value = false
-  }, 4000)
+let timers = []
 
-  if (theme.value == 'dark') {
-    document.body.style.backgroundColor = 'black'
-    document.querySelector('.submit-btn').style.backgroundColor = ''
-    document.querySelector('.submit-btn').style.color = ''
-  } else {
-    document.body.style.backgroundColor = 'transparent'
-    window.about.style.backgroundColor = 'transparent'
-    document.querySelector('.submit-btn').style.backgroundColor = '#f536369e'
-    document.querySelector('.submit-btn').style.color = ''
-  }
+// دالة كتابة النصوص (Typewriter) محسّنة ونظيفة
+const startTyping = () => {
+  // تفريغ القيم القديمة وتصفير المؤقتات منعاً للتداخل
+  timers.forEach((t) => clearInterval(t))
+  timers = []
 
-  const name2 = ref('IHAP KARAM')
-  const sub2 = ref('FULL STACK DEVELOPER')
-  const disc2 = ref(
-    `Full-Stack Developer with strong experience in building modern, responsive, and SEO-optimized web applications. Proficient in front-end development using Vue.js, Nuxt.js, and React.js, along with modern UI libraries such as Vuetify and Bootstrap. Experienced in back-end development using PHP and Laravel, including building and integrating RESTful APIs, and working with SQL databases for efficient data modeling and querying. Passionate about user-centered design and creating efficient, scalable, and maintainable applications. Skilled in state management with Vuex, Pinia, and Redux Toolkit, and experienced with modern development tools such as Vite and Git.`,
-  )
+  name.value = ''
+  sub.value = ''
+  disc.value = ''
+
+  const name2 = langStore.langfun().name
+  const sub2 = langStore.langfun().sub
+  const disc2 = langStore.langfun().disc
+
   let x = 0
   let x2 = 0
   let x3 = 0
 
   const inter = setInterval(() => {
-    if (x < name2.value.length) {
-      name.value += name2.value[x]
+    if (x < name2.length) {
+      name.value += name2[x]
       x++
     } else {
       clearInterval(inter)
     }
   }, 100)
+  timers.push(inter)
 
   const intersub = setInterval(() => {
-    if (x2 < sub2.value.length) {
-      sub.value += sub2.value[x2]
+    if (x2 < sub2.length) {
+      sub.value += sub2[x2]
       x2++
     } else {
       clearInterval(intersub)
     }
   }, 120)
+  timers.push(intersub)
 
   const interdis = setInterval(() => {
-    if (x3 < disc2.value.length) {
-      disc.value += disc2.value[x3]
+    if (x3 < disc2.length) {
+      disc.value += disc2[x3]
       x3++
     } else {
       clearInterval(interdis)
     }
   }, 3)
+  timers.push(interdis)
+}
+
+// دالة لتطبيق الثيم (Dark / Light) على الأزرار والخلفية
+const applyThemeStyles = (currentTheme) => {
+  const submitBtn = document.querySelector('.submit-btn')
+  const aboutSection = document.getElementById('about')
+
+  if (currentTheme === 'dark') {
+    document.body.style.backgroundColor = 'black'
+    if (submitBtn) {
+      submitBtn.style.backgroundColor = ''
+      submitBtn.style.color = '#fff'
+    }
+  } else {
+    document.body.style.backgroundColor = 'transparent'
+    if (aboutSection) aboutSection.style.backgroundColor = 'transparent'
+    if (submitBtn) {
+      submitBtn.style.backgroundColor = '#f536369e'
+      submitBtn.style.color = ''
+    }
+  }
+}
+
+onMounted(() => {
+  // مدة التأثير السينمائي للتحول (4 ثوانٍ)
+  if (!hasSeenAnimation.value) {
+    setTimeout(() => {
+      isEyeActive.value = false
+      store.setAnimationSeen() // حفظ الحالة في البينيا للأبد طوال الجلسة
+    }, 4000)
+  }
+
+  applyThemeStyles(theme.value)
+  startTyping()
 })
 
+// مراقبة تغيير اللغة لإعادة تشغيل الـ Typewriter
+watch(
+  () => langStore.langv,
+  () => {
+    startTyping()
+  },
+)
+
+// مراقبة تغيير الثيم لتحديث الألوان بشكل فوري
 watch(
   () => theme.value,
-  (newVal, oldVal) => {
-    theme.value = newVal
-
-    if (theme.value == 'dark') {
-      document.body.style.backgroundColor = 'black'
-      document.querySelector('.submit-btn').style.backgroundColor = ''
-      document.querySelector('.submit-btn').style.color = '#fff'
-    } else {
-      document.body.style.backgroundColor = 'transparent'
-      window.about.style.backgroundColor = 'transparent'
-      document.querySelector('.submit-btn').style.backgroundColor = '#f536369e'
-      document.querySelector('.submit-btn').style.color = ''
-    }
+  (newVal) => {
+    applyThemeStyles(newVal)
   },
 )
 </script>
@@ -237,7 +268,7 @@ watch(
   justify-content: start;
   height: fit-content;
   direction: ltr;
-  z-index: 2; /* بقاء النصوص في طبقة جيدة لكن الغربان ستعلوها بالكامل */
+  z-index: 2;
 }
 
 .imgCol {
@@ -250,7 +281,6 @@ watch(
   z-index: 2;
 }
 
-/* عناصر تصميم الأكاتسكي النظيف */
 .section-subtitle {
   color: #ef5350;
   font-size: 0.85rem;
@@ -261,7 +291,7 @@ watch(
 .title-line {
   width: 60px;
   height: 10px;
-  background-color: #d32f2f; /* أحمر أكاتسكي هادئ */
+  background-color: #d32f2f;
   border-radius: 2px;
 }
 
@@ -280,7 +310,6 @@ watch(
   letter-spacing: 0.5px;
 }
 
-/* زر تحميل السيرة الذاتية بتصميم متناسق */
 .submit-btn {
   border-radius: 8px !important;
   letter-spacing: 0.5px;
@@ -294,22 +323,19 @@ watch(
   color: #e0d3d394;
 }
 
-/* ========================================= */
-/* نظام الغربان الشامل والممتد فوق النصوص (Global Crows) */
-/* ========================================= */
+/* نظام الغربان الشامل والممتد فوق النصوص */
 .global-crows-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 999; /* طبقة عليا مطلقة تضمن الطيران فوق النصوص والأزرار */
+  z-index: 999;
   pointer-events: none;
   perspective: 600px;
   overflow: hidden;
 }
 
-/* هيكل وتصميم الغراب برمجياً مع تفعيل خاصية الـ 3D لرفرفة الأجنحة */
 .crow {
   position: absolute;
   display: flex;
@@ -321,7 +347,6 @@ watch(
   transform-style: preserve-3d;
 }
 
-/* الأجنحة وجسم الغراب الأساسي */
 .wing {
   position: absolute;
   width: 25px;
@@ -344,7 +369,6 @@ watch(
   animation: wing-flap-right 0.25s ease-in-out infinite alternate;
 }
 
-/* ذيل وجسد الغراب الصغير بالمنتصف */
 .crow::before {
   content: '';
   position: absolute;
@@ -355,7 +379,6 @@ watch(
   z-index: 2;
 }
 
-/* إعدادات حركة ومسار كل غراب من العين (اليمين) مروراً بالنصوص (اليسار) */
 .crow-1 {
   right: 25%;
   top: 45%;
@@ -391,7 +414,6 @@ watch(
   animation-delay: 1.8s;
 }
 
-/* أنيميشن رفرفة الأجنحة بشكل واقعي وسريع */
 @keyframes wing-flap-left {
   0% {
     transform: rotateY(-40deg) rotateZ(10deg);
@@ -409,7 +431,6 @@ watch(
   }
 }
 
-/* مسارات الحركة السينمائية المارّة فوق قسم النصوص بالكامل */
 @keyframes fly-across-1 {
   0% {
     transform: translate3d(0, 0, 0) scale(0.3) rotate(-10deg);
@@ -485,9 +506,6 @@ watch(
   }
 }
 
-/* ========================================= */
-/* محرك تحول الشارينغان والصورة الشخصية الأصلية */
-/* ========================================= */
 .photo {
   height: 290px;
   width: 290px;
@@ -495,7 +513,7 @@ watch(
   object-fit: cover;
   position: relative;
   z-index: 2;
-  border: 4px solid #ffffff; /* فاصل أبيض ناصع لإبراز الصورة */
+  border: 4px solid #ffffff;
   opacity: 0;
   transform: scale(1.1);
   transition:
@@ -508,7 +526,6 @@ watch(
   transform: scale(1);
 }
 
-/* حاوية الصورة المستديرة المضيئة بظلال الأكاتسكي الحمراء النظيفة */
 .divimg {
   height: 300px;
   width: 300px;
@@ -517,7 +534,7 @@ watch(
   align-items: center;
   border-radius: 50%;
   background: #ffffff;
-  border: 5px solid rgb(251, 5, 5); /* إطار خارجي أحمر خفيف */
+  border: 5px solid rgb(251, 5, 5);
   position: relative;
   box-shadow:
     0 0 25px rgb(253, 59, 59),
@@ -618,7 +635,6 @@ watch(
   animation: bleed-down-effect 3.5s ease-in-out forwards;
 }
 
-/* أنيميشن التركيز والهز */
 @keyframes eye-focus-activation {
   0% {
     transform: rotate(0deg) scale(0.9);
@@ -672,9 +688,6 @@ watch(
   }
 }
 
-/* ========================================= */
-/* تنسيق الأيقونات الطائرة حول الصورة الشخصية */
-/* ========================================= */
 .tech-icon-shadow {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   background-color: #ffffff;
@@ -690,7 +703,6 @@ watch(
   left: 15%;
   animation: flay 3s ease-in-out infinite;
 }
-
 .photo3 {
   width: 60px;
   height: 60px;
@@ -700,7 +712,6 @@ watch(
   right: 15%;
   animation: flay 3.5s ease-in-out infinite;
 }
-
 .photo4 {
   width: 50px;
   height: 50px;
@@ -710,7 +721,6 @@ watch(
   right: 20%;
   animation: flay 2.8s ease-in-out infinite;
 }
-
 .photo5 {
   width: 55px;
   height: 55px;
@@ -721,7 +731,6 @@ watch(
   animation: flay 3.2s ease-in-out infinite;
 }
 
-/* تأثير حركة طيران ناعم وسلس ومريح للعين تماماً */
 @keyframes flay {
   0% {
     transform: translateY(0px);
@@ -734,7 +743,6 @@ watch(
   }
 }
 
-/* التجاوب مع الشاشات والأجهزة اللوحية */
 @media (max-width: 991px) {
   .row {
     flex-flow: column-reverse;
@@ -778,7 +786,6 @@ watch(
     bottom: 20px;
   }
 
-  /* تعديل مسار الغربان في الشاشات الصغيرة ليصبح عمودياً للأعلى فوق النصوص */
   @keyframes fly-across-1 {
     0% {
       transform: translate3d(0, 150px, 0) scale(0.3);
@@ -818,7 +825,6 @@ watch(
       opacity: 0;
     }
   }
-  /* الغاء الأنيميشن الزائد للشاشات الصغيرة لتجنب العشوائية */
   .crow-4,
   .crow-5 {
     display: none;
@@ -828,75 +834,6 @@ watch(
     top: 0;
     width: 100%;
     height: 130%;
-  }
-}
-
-@media (max-width: 500px) {
-  .imgCol {
-    height: 360px;
-    top: 20px;
-    width: 100%;
-  }
-
-  .textCol {
-    align-items: center;
-    text-align: center;
-    margin-top: 24px;
-    width: 100%;
-    position: relative;
-  }
-  /* أنيميشن التركيز والهز */
-  @keyframes eye-focus-activation {
-    0% {
-      transform: rotate(0deg) scale(0.9);
-    }
-    25% {
-      transform: rotate(360deg) scale(1.05);
-    }
-    85% {
-      transform: rotate(-360deg) scale(1.02);
-    }
-    100% {
-      transform: rotate(740deg) scale(1);
-    }
-  }
-
-  @keyframes flame-burn {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes bleed-down-effect {
-    0%,
-    20% {
-      transform: scaleY(0);
-      opacity: 0;
-      transform-origin: top;
-    }
-    60% {
-      transform: scaleY(1);
-      opacity: 0.9;
-      transform-origin: top;
-    }
-    100% {
-      transform: scaleY(1.1);
-      opacity: 0;
-      transform-origin: top;
-      filter: blur(2px);
-    }
-  }
-
-  @keyframes amaterasu-shake {
-    0% {
-      transform: translate(0.5px, 0.3px) translateY(0px);
-    }
-    100% {
-      transform: translate(-0.5px, -0.3px) translateY(-2px);
-    }
   }
 }
 </style>

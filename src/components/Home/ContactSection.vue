@@ -10,13 +10,15 @@
               class="mr-2"
               size="small"
             ></v-icon>
-            <span style="color: rgb(244, 36, 36); font-weight: bold" class="section-subtitle"
-              >GET IN TOUCH</span
-            >
+            <span style="color: rgb(244, 36, 36); font-weight: bold" class="section-subtitle">{{
+              langStore.langfun().contactContent.subtitle
+            }}</span>
           </div>
         </v-row>
         <v-row>
-          <h2 id="titl" class="text-h3 font-weight-bold tracking-wide">Let's Connect</h2>
+          <h2 id="titl" class="text-h3 font-weight-bold tracking-wide">
+            {{ langStore.langfun().contactContent.title }}
+          </h2>
           <div class="title-line mx-auto mt-3"></div>
         </v-row>
 
@@ -28,10 +30,11 @@
 
     <v-row id="rowT" justify="center" class="px-md-6">
       <v-col id="coltxt" cols="12" sm="10" md="8" lg="6" class="text-center">
-        <h3 class="text-h5 font-weight-bold text-slate-800 mb-4">Contact Information</h3>
+        <h3 class="text-h5 font-weight-bold text-slate-800 mb-4">
+          {{ langStore.langfun().contactContent.infoTitle }}
+        </h3>
         <p class="text-body-2 text-slate-500 mb-8 line-height-relaxed max-w-md mx-auto">
-          Have a project in mind, looking for a full-stack developer, or just want to say hello?
-          Drop a message and I'll get back to you as soon as possible.
+          {{ langStore.langfun().contactContent.infoDesc }}
         </p>
 
         <div class="d-flex flex-column gap-4 max-w-md mx-auto">
@@ -40,8 +43,12 @@
               <v-icon icon="mdi-phone" color="red-darken-2" size="small"></v-icon>
             </v-avatar>
             <div>
-              <div class="text-caption text-slate-400 font-weight-medium">CALL</div>
-              <div class="text-body-2 font-weight-bold text-slate-700">+20 01032869272</div>
+              <div class="text-caption text-slate-400 font-weight-medium">
+                {{ langStore.langfun().contactContent.phoneLabel }}
+              </div>
+              <div class="text-body-2 font-weight-bold text-slate-700">
+                {{ langStore.langfun().contactContent.phone }}
+              </div>
             </div>
           </div>
 
@@ -50,9 +57,11 @@
               <v-icon icon="mdi-email" color="red-darken-2" size="small"></v-icon>
             </v-avatar>
             <div>
-              <div class="text-caption text-slate-400 font-weight-medium">EMAIL</div>
+              <div class="text-caption text-slate-400 font-weight-medium">
+                {{ langStore.langfun().contactContent.emailLabel }}
+              </div>
               <div class="text-body-2 font-weight-bold text-slate-700">
-                eihapkaram9090@gmail.com
+                {{ langStore.langfun().contactContent.email }}
               </div>
             </div>
           </div>
@@ -62,8 +71,12 @@
               <v-icon icon="mdi-map-marker" color="red-darken-2" size="small"></v-icon>
             </v-avatar>
             <div>
-              <div class="text-caption text-slate-400 font-weight-medium">LOCATION</div>
-              <div class="text-body-2 font-weight-bold text-slate-700">Cairo, Egypt</div>
+              <div class="text-caption text-slate-400 font-weight-medium">
+                {{ langStore.langfun().contactContent.locationLabel }}
+              </div>
+              <div class="text-body-2 font-weight-bold text-slate-700">
+                {{ langStore.langfun().contactContent.location }}
+              </div>
             </div>
           </div>
         </div>
@@ -72,7 +85,7 @@
           <div
             class="text-caption text-slate-400 font-weight-bold mb-4 tracking-wider text-uppercase"
           >
-            Follow Me
+            {{ langStore.langfun().contactContent.socialLabel }}
           </div>
 
           <div class="d-flex justify-center gap-3">
@@ -106,6 +119,7 @@
     </v-row>
   </v-container>
 </template>
+
 <style scoped>
 #line {
   height: 3px;
@@ -133,12 +147,18 @@
   }
 }
 </style>
+
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useCounterStore } from '/src/stores/counter'
 import { computed, reactive, onMounted, watch } from 'vue'
+import { lang } from '/src/stores/lang'
+const langStore = lang()
 const store = useCounterStore()
 const { theme } = storeToRefs(store)
+
+// النصوص الإنجليزية الأصلية داخل كائن تفاعلي
+
 onMounted(() => {
   if (theme.value == 'dark') {
     document.querySelector('#contact').style.backgroundColor = 'transparent'
@@ -150,6 +170,7 @@ onMounted(() => {
     document.querySelector('#rowT').style.color = 'black'
   }
 })
+
 watch(
   () => theme.value,
   (newVal, oldVal) => {

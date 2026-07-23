@@ -1,9 +1,13 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 import LayOut from '@/components/LayOut.vue'
 import LoadingScreen from './components/LoadingScreen.vue'
 import NarutoWindBackdrop from './components/NarutoWindBackdrop.vue'
+
+import { lang } from '/src/stores/lang'
+
+const langStore = lang().langv
 const route = useRoute()
 const isLoading = ref(true)
 onMounted(() => {
@@ -12,6 +16,10 @@ onMounted(() => {
     isLoading.value = false
   }, 500)
 })
+watch(
+  () => langStore,
+  (newVal) => {},
+)
 </script>
 
 <template>

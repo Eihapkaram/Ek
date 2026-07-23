@@ -5,7 +5,9 @@
     </template>
 
     <v-app-bar-title>Ek</v-app-bar-title>
-
+    <v-btn @click="langStore.toggleLang()">
+      {{ langStore.langv }}
+    </v-btn>
     <template v-slot:append>
       <!-- مفتاح التبديل المنزلق الاحترافي (Toggle Switch) -->
       <div :class="['theme-switch-container', theme]" @click="store.toggleTheme">
@@ -50,16 +52,21 @@
       <div class="navigation-links-container">
         <router-link id="links" class="akatsuki-link-item" to="/">
           <span class="link-glow-effect"></span>
-          <span class="link-text">Home</span>
+          <span class="link-text">{{ langStore.langfun().HomeLink.title }}</span>
           <span class="japanese-char">ホーム</span>
         </router-link>
 
-        <li id="links" class="akatsuki-li" v-for="(link, i) in links" :key="i">
-          <a class="akatsuki-link-item" :href="link.url">
+        <li
+          id="links"
+          class="akatsuki-li"
+          v-for="(link, i) in langStore.langfun().HomeLink.links"
+          :key="i"
+        >
+          <router-link class="akatsuki-link-item" :to="link.url">
             <span class="link-glow-effect"></span>
             <span class="link-text">{{ link.title }}</span>
             <span class="japanese-char">忍</span>
-          </a>
+          </router-link>
         </li>
       </div>
 
@@ -69,14 +76,16 @@
     </v-list>
   </v-navigation-drawer>
   <v-app-bar v-if="!show" class="nav">
-    <span class="logo">Ek</span>
+    <span class="logo">Ihap_karam</span>
 
     <v-list class="linkslist">
-      <router-link style="margin-bottom: 5px" to="/">home</router-link>
-      <li v-for="(link, i) in links" :key="i">
-        <a style="text-decoration: none" :href="link.url">
+      <router-link style="margin-bottom: 5px" to="/">{{
+        langStore.langfun().HomeLink.title
+      }}</router-link>
+      <li v-for="(link, i) in langStore.langfun().HomeLink.links" :key="i">
+        <router-link style="text-decoration: none" :to="link.url">
           {{ link.title }}
-        </a>
+        </router-link>
       </li>
     </v-list>
 
@@ -93,41 +102,34 @@
         </v-icon>
       </div>
     </div>
+    <v-btn @click="langStore.toggleLang()">
+      {{ langStore.langv }}
+    </v-btn>
   </v-app-bar>
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, watch } from 'vue'
-import { useTheme } from 'vuetify'
-
+import { lang } from '/src/stores/lang'
 import { useCounterStore } from '/src/stores/counter'
+import { useTheme } from 'vuetify'
 import { storeToRefs } from 'pinia'
-const tho = useTheme()
+
+//data
+
 const store = useCounterStore()
+const langStore = lang()
 const { theme } = storeToRefs(store)
 const open = ref(false)
 const show = ref(true)
-const links = reactive([
-  { title: 'Experience', url: '#experience' },
-  { title: 'Skills', url: '#skills' },
-  { title: 'Projects', url: '#projects' },
-  { title: 'Contact', url: '#contact' },
-])
-
 onMounted(() => {
   if (document.body.clientWidth <= 500) {
     show.value = true
   } else {
     show.value = false
   }
-  store.toggleTheme()
 })
 watch(
-  () => theme.value,
-  (newVal, oldVal) => {
-    theme.value = newVal
-    tho.global.name.value = theme.value
-  },
   () => document.body.clientWidth,
   (newVal, oldVal) => {
     if (document.body.clientWidth <= 500) {
@@ -366,14 +368,13 @@ watch(
 }
 #links {
   padding-block: 10px;
-  padding-inline: 30px;
+  margin-left: 50px;
   width: 100%;
   color: #a52626a7;
 }
 #links a {
   color: #d32f2f;
   padding-block: 10px;
-  padding-inline: 60px;
 }
 #links:hover {
   color: #d2c4c4;
@@ -450,8 +451,8 @@ watch(
   align-items: center;
   justify-content: space-between;
   padding: 0 6px;
-  margin-left: auto;
-  margin-right: 16px;
+  margin-left: 0px;
+  margin-right: 0px;
   user-select: none;
   transition:
     background-color 0.4s ease,
@@ -558,7 +559,8 @@ watch(
 @media (min-width: 1024px) {
   .logo {
     position: relative;
-    left: 30px;
+    left: 10px;
+    padding-right: 20px;
   }
   .nav {
     display: flex;
@@ -574,7 +576,8 @@ watch(
     justify-content: center;
     align-content: center;
     gap: 50px;
-    margin-left: 400px;
+    margin-left: 300px;
+    margin-right: 300px;
   }
 }
 
