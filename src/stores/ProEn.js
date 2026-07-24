@@ -79,17 +79,14 @@ To facilitate the purchase of wholesale products in the Egyptian market and prov
       videoUrl: '',
 
       skills: [
-        'Rest Api',
-
-        'Vuetify',
-
         'vuejs',
+        'Vuetify',
         'laravel',
+        'MySQL',
+        'Rest Api',
         'option api',
         'compositin api',
         'PHP',
-
-        'MySQL',
 
         'Vite',
 
@@ -171,17 +168,14 @@ I’m always open to feedback, collaboration opportunities, and new challenges i
       videoUrl: '',
       skills: [
         'Reactjs',
-        'Rest Api',
-
-        'Vite',
-
         'Redux Toolkit',
-
         'laravel',
-
         'PHP',
 
         'MySQL',
+        'Rest Api',
+
+        'Vite',
 
         'تحسين نتائج محركات البحث (SEO)',
 
@@ -206,19 +200,17 @@ I’m always open to feedback, collaboration opportunities, and new challenges i
       imags: [getAssetUrl('pizza/صفحه1 بيتزا.png')],
       videoUrl: '',
       skills: [
-        'HTML5',
+        'Nuxtjs',
 
         'jQuery',
-
         'تحسين نتائج محركات البحث (SEO)',
+        'HTML5',
 
         'OOP',
 
         'CSS',
 
         'JavaScript',
-
-        'Nuxtjs',
 
         'Vite',
       ],
@@ -241,20 +233,16 @@ I’m always open to feedback, collaboration opportunities, and new challenges i
       ],
       videoUrl: '',
       skills: [
+        'vuejs',
+        'Vuex',
+        'jQuery',
+        'Bootstrap',
         'Rest Api',
         'HTML5',
-
-        'Vuex',
-
-        'vuejs',
-
-        'jQuery',
 
         'OOP',
 
         'CSS',
-
-        'Bootstrap',
 
         'JavaScript',
 
@@ -280,10 +268,9 @@ I’m always open to feedback, collaboration opportunities, and new challenges i
       videoUrl: '',
       skills: [
         'vuejs',
-
-        'Option api',
-
+        'Bootstrap',
         'jQuery',
+        'Option api',
 
         'Git',
 
@@ -292,8 +279,6 @@ I’m always open to feedback, collaboration opportunities, and new challenges i
         'HTML',
 
         'CSS',
-
-        'Bootstrap',
 
         'JavaScript',
 
@@ -331,15 +316,12 @@ This project helps travel agencies increase engagement and sales by providing a 
       imags: [getAssetUrl('travel/home.png'), getAssetUrl('travel/travel.png')],
       videoUrl: '',
       skills: [
+        'vuejs',
+        'Vuetify',
+        'JavaScript',
         'HTML5',
 
-        'Vuetify',
-
-        'vuejs',
-
         'تحسين نتائج محركات البحث (SEO)',
-
-        'JavaScript',
 
         'HTML',
 
@@ -367,11 +349,10 @@ This project helps travel agencies increase engagement and sales by providing a 
       ],
       videoUrl: '',
       skills: [
-        'Rest Api',
-
-        'Vuetify',
-
         'vuejs',
+        'Vuetify',
+        'Pinia',
+        'Rest Api',
 
         'تحسين نتائج محركات البحث (SEO)',
 
@@ -381,10 +362,89 @@ This project helps travel agencies increase engagement and sales by providing a 
 
         'CSS',
 
-        'Pinia',
-
         'JavaScript',
       ],
+    },
+    {
+      id: 8,
+      title: 'Bilingual Media Buyer Portfolio',
+      subtitle: 'frontend Project',
+      link: 'https://madia-production.up.railway.app/',
+      dis: `
+
+Portfolio Overview: Bilingual & Fully Responsive
+A sleek, high-performance, fully responsive, and bilingual (Arabic & English) portfolio website built with Laravel Blade and Tailwind CSS, tailored specifically for media producers, video editors, and visual creators to showcase their best work, client feedback, and professional credentials seamlessly across all devices.
+
+Key Sections & Features
+1. Navigation & Quick Access (Sticky Glassmorphism Navbar)
+Bilingual Switcher: A seamless language toggle allowing users to switch between Arabic and English instantly.
+
+Brand Logo: Minimalist and bold typography with a subtle glow effect.
+
+Navigation Links: Smooth scrolling anchors to sections (Home, Portfolio, Testimonials, Certificates, Contact).
+
+Floating WhatsApp Button: A pulsating, high-conversion WhatsApp floating icon fixed at the bottom corner for instant client communication.
+
+2. Hero Section
+Headline: "Hi, I'm Ihap Karam — A Visual Storyteller & Video Editor turning raw footage into cinematic masterpieces."
+
+Subheadline: A brief statement highlighting expertise in post-production, commercial editing, and media growth strategies.
+
+Call-to-Action (CTA) Buttons:
+
+Primary: "Explore Work" (smooth scrolls to the portfolio grid).
+
+Secondary: "Let's Chat on WhatsApp" (direct link).
+
+Visual Element: A looping, high-quality, muted background video overlay with a dark cinematic gradient, fully optimized for all screen sizes.
+
+3. Dynamic Portfolio & Media Grid (Laravel Blade Integration)
+Layout: A fully responsive masonry/grid layout styled with Tailwind CSS, featuring smooth hover zoom effects that adapt gracefully from mobile screens to ultrawide displays.
+
+Category Filters: Interactive tabs to filter through project types (e.g., Video Editing, Commercials, Motion Graphics, Screenshots/Designs).
+
+Media Display:
+
+Videos: Lightweight embedded video players or self-hosted HTML5 video players optimized for fast loading.
+
+Images/Screenshots: A clean Lightbox modal that enlarges images in high resolution upon click.
+
+Backend Power: Fully dynamic using Laravel Blade loops (@foreach), allowing effortless management (adding, editing, or deleting projects) via an admin panel supporting RTL and LTR layouts dynamically.
+
+4. Client Testimonials (Social Proof)
+Design: Sleek glass-card components featuring client avatars, names, roles, and review quotes alongside star ratings.
+
+Layout: A clean grid or carousel layout fully aligned for both Arabic and English text directions (dir="rtl" / dir="ltr").
+
+5. Certificates & Achievements
+Design: A dedicated, elegant section showcasing professional certifications, advanced editing workshop completions, or industry awards.
+
+Interaction: Clicking a certificate opens a high-res preview modal for verification.
+
+6. Footer & Contact Section
+Design: A deep dark-mode aesthetic providing a professional, modern finish.
+
+Content:
+
+Catchphrase: "Ready to take your next project to the next level?"
+
+Prominent WhatsApp Direct Button with phone number integration.
+
+Social media links (YouTube, Instagram, LinkedIn, Behance).
+
+Copyright text and tech stack credit (Crafted with Laravel & Tailwind CSS).
+
+Recommended Tech Stack Benefits
+Laravel Blade: Ensures lightning-fast server-side rendering, dynamic localization (lang), clean component organization, and effortless dynamic content updates.
+
+Tailwind CSS: Delivers a modern, fully responsive mobile-first design system with flawless RTL/LTR support.
+
+Alpine.js: Perfect companion for handling lightweight frontend interactivity like modals, mobile menus, language toggling, and filter tabs without heavy framework overhead.
+`,
+      mainImg: getAssetUrl('media/cover.jpg'),
+      imags: [getAssetUrl('media/home.png')],
+      videoUrl: '',
+      skills: ['Laravel Blade', 'Tailwind CSS', 'HTML5', 'CSS', 'JavaScript'],
     },
   ])
   return { all, header }

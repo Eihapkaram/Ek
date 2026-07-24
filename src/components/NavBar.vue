@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click="open = !open"></v-app-bar-nav-icon>
     </template>
 
-    <v-app-bar-title>Ek</v-app-bar-title>
+    <v-app-bar-title style="position: relative; left: -5px">Ek</v-app-bar-title>
     <v-btn @click="langStore.toggleLang()">
       {{ langStore.langv }}
     </v-btn>
@@ -635,7 +635,7 @@ watch(
     width: 56px;
     height: 28px;
     position: relative;
-    left: -20px;
+    left: 0px;
   }
   .switch-handle {
     width: 22px;

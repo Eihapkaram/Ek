@@ -137,19 +137,19 @@ import { lang } from '/src/stores/lang'
 
 const langStore = lang()
 const store = useCounterStore()
-const { theme, hasSeenAnimation } = storeToRefs(store)
+const { theme } = storeToRefs(store)
 
 const name = ref('')
 const sub = ref('')
 const disc = ref('')
 const path = ref('/')
-const isEyeActive = ref(!hasSeenAnimation.value)
+// تم جعل القيمة false مباشرة لكي تختفي العين وتظهر الصورة مباشرة دون أي انتظار
+const isEyeActive = ref(false)
 
 let timers = []
 
 // دالة كتابة النصوص (Typewriter) محسّنة ونظيفة
 const startTyping = () => {
-  // تفريغ القيم القديمة وتصفير المؤقتات منعاً للتداخل
   timers.forEach((t) => clearInterval(t))
   timers = []
 
@@ -218,14 +218,6 @@ const applyThemeStyles = (currentTheme) => {
 }
 
 onMounted(() => {
-  // مدة التأثير السينمائي للتحول (4 ثوانٍ)
-  if (!hasSeenAnimation.value) {
-    setTimeout(() => {
-      isEyeActive.value = false
-      store.setAnimationSeen() // حفظ الحالة في البينيا للأبد طوال الجلسة
-    }, 4000)
-  }
-
   applyThemeStyles(theme.value)
   startTyping()
 })
